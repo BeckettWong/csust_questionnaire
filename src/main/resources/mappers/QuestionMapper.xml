@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.satisfaction_questionnaire.dao.QuestionMapper">
+    <resultMap id="Integers" type="com.example.satisfaction_questionnaire.entity.Question">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+
+    </resultMap>
+    <insert id="addQuestion" parameterType="com.example.satisfaction_questionnaire.entity.Question">
+        insert into question_info (survey_id,question_type,question_description<if test="questionSort!=null">,question_sort</if><if
+            test="requiredFlag!=null">,required_flag</if>) values (#{surveyId},#{questionType},#{questionDescription}<if
+            test="questionSort!=null">,#{questionSort}</if><if test="requiredFlag!=null">,#{requiredFlag}</if>)
+    </insert>
+    <delete id="deleteQuestion">
+        delete from question_info where id=#{questionId}
+    </delete>
+    <select id="getQuestionIdBySurveyId" resultType="java.lang.Integer">SELECT id from question_info where survey_id=#{surveyId}</select>
+    <select id="getQuestionIdByDescription" resultType="java.lang.Integer"> SELECT id from question_info where question_description=#{questionDescription} and survey_id=#{surveyId}</select>
+    <select id="getDescriptionByQuestionId" resultType="java.lang.String">SELECT question_description from question_info where id=#{questionId}</select>
+    <select id="getQuestionTypeByQuestionId" resultType="java.lang.String">SELECT question_Type from question_info where id=#{questionId}</select>
+    <select id="getQuestionIdsByType" resultType="java.lang.Integer">select id from question_info where question_Type="填空" and survey_id in <foreach collection="surveyIds" open="(" close=")" separator=","  item="id">
+        #{id}
+    </foreach>
+    </select>
+</mapper>

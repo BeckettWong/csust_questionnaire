@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://0.0.0.0:3306/csust?characterEncoding=utf-8&useSSL=false
+      username: root
+      password: root
+
+
+mybatis:
+  mapper-locations: classpath:mappers/*Mapper.xml
+  type-aliases-type: com.example.satisfaction_questionnaire.entity
+
+server:
+  port: 9000
+

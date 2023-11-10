@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.satisfaction_questionnaire.dao.TeacherMapper">
+    <resultMap id="BaseResultMap" type="com.example.satisfaction_questionnaire.entity.Teacher">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="campus" jdbcType="VARCHAR" property="campus" />
+        <result column="open_id" jdbcType="VARCHAR" property="openId" />
+        <result column="questionnaire_name" jdbcType="VARCHAR" property="questionnaireName" />
+        <result column="sort" jdbcType="VARCHAR" property="sort" />
+    </resultMap>
+
+    <insert id="addTeacherInfo">insert into teacher_info (sex,create_date,campus,open_id,questionnaire_name,sort) values (#{sex},#{createDate},#{campus},#{openId},#{questionnaireName},#{sort})</insert>
+    <select id="getTeacherByOpenId" resultMap="BaseResultMap">select * from teacher_info where open_id=#{openId}</select>
+    <select id="getTeacherId" resultType="java.lang.Integer">select id from teacher_info where open_id=#{openId}</select>
+    <select id="getTeacherIdByOpenIdAndName" resultType="java.lang.Integer">select id from teacher_info where open_id=#{openId} and questionnaire_name=#{questionnaireName}</select>
+    <select id="getTeacherByTeacherId" resultMap="BaseResultMap">select * from teacher_info where id=#{teacherId}</select>
+
+    <select id="getStudentIdByCampus" resultType="java.lang.Integer">select id from teacher_info where campus=#{campus} and questionnaire_name=#{questionnaireName}</select>
+    <select id="getTeacherIdBySex" resultType="java.lang.Integer">select id from teacher_info where sex=#{sex} and questionnaire_name=#{questionnaireName}</select>
+    <select id="getTeacherIdBySort" resultType="java.lang.Integer">select id from teacher_info where sort=#{sort} and questionnaire_name=#{questionnaireName}</select>
+
+
+</mapper>

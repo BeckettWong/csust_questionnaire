@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.satisfaction_questionnaire.dao.StudentMapper">
+    <resultMap id="BaseResultMap" type="com.example.satisfaction_questionnaire.entity.Student">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="campus" jdbcType="VARCHAR" property="campus" />
+        <result column="grade" jdbcType="VARCHAR" property="grade" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="academy_name" jdbcType="VARCHAR" property="academyName" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="questionnaire_name" jdbcType="VARCHAR" property="questionniareName" />
+    </resultMap>
+    <insert id="addStudentInfo" parameterType="com.example.satisfaction_questionnaire.entity.Student">
+        insert into student_info (campus,grade,sex,academy_name,create_date,open_id,questionnaire_name) values(#{campus},#{grade},#{sex},#{academyName},#{createDate},#{openId},#{questionniareName})
+    </insert>
+    <select id="getStudentIdByOpenIdAndName" resultType="java.lang.Integer">select id from student_info where open_id=#{openId} and questionnaire_name=#{questionnaireName}</select>
+    <select id="getStudentIdByAcademyName" resultType="java.lang.Integer">select id from student_info where academy_name=#{academyName}</select>
+    <select id="getStudentByOpenId" resultMap="BaseResultMap"></select>
+    <select id="getStudentId" resultType="java.lang.Integer">select id from student_info where open_id=#{openId}</select>
+    <select id="getStudentByStudentId" resultMap="BaseResultMap">select * from student_info where id=#{studentId}</select>
+    <select id="getStudentIdByCampus" resultType="java.lang.Integer">select id from student_info where campus=#{campus} and questionnaire_name=#{questionnaireName}</select>
+    <select id="getStudentIdBySex" resultType="java.lang.Integer">select id from student_info where sex=#{sex} and questionnaire_name=#{questionnaireName}</select>
+    <select id="getStudentIdByGradeName" resultType="java.lang.Integer">select id from student_info where grade=#{grade} and questionnaire_name=#{questionnaireName}</select>
+</mapper>

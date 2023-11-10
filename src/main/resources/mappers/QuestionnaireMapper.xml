@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.satisfaction_questionnaire.dao.QuestionnaireMapper">
+
+    <insert id="addQuestionnaire">insert into questionnaire (survey_id,questionnaire_name,questionnaire_target,questionnaire_status) values (#{surveyId},#{questionnaireName},#{questionnaireTarget},#{questionnaireStatus})</insert>
+
+    <delete id="deleteQuestionnaire"> delete from questionnaire where id=#{questionnaireId}</delete>
+
+    <select id="getSurveyIdByName" resultType="java.lang.Integer">SELECT survey_id from questionnaire where questionnaire_name=#{questionnaireName}</select>
+
+    <select id="getQuestionnairesTargetByName" resultType="java.lang.String">SELECT questionnaire_target from questionnaire where questionnaire_name=#{questionnaireName}</select>
+
+    <select id="getQuestionName" resultType="java.lang.String">SELECT distinct questionnaire_name from questionnaire</select>
+
+    <select id="getQuestionStatusByName" resultType="java.lang.String">SELECT distinct questionnaire_status from questionnaire where questionnaire_name=#{questionnaireName}</select>
+
+    <select id="getQuestionName2" resultType="java.lang.String">SELECT distinct questionnaire_name from questionnaire where questionnaire_status=#{status}</select>
+
+    <update id="updateQuestionAndStatus">update questionnaire set questionnaire_status = #{questionnaireStatus} where questionnaire_name =#{questionnaireName}</update>
+</mapper>
