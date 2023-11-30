@@ -5,28 +5,30 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface RelationService {
-  boolean addRelation(Integer paramInteger1, Integer paramInteger2, String paramString);
+public interface RelationService{
+  boolean addRelation(Integer userID, Integer optionID, String userStatus);
   
-  Integer getNum(Integer paramInteger);
+  Integer getNum(Integer optionId);
   
-  Integer getTeacherNum(Integer paramInteger);
+  Integer getTeacherNum(Integer optionId);
   
-  Integer getStudentNum(Integer paramInteger);
+  Integer getStudentNum(Integer optionId);
   
-  Integer getAcademyNum(Integer paramInteger, String paramString);
+  Integer getAcademyNum(Integer optionId, String AcademyName);
   
   Integer getSexNum(Integer paramInteger, String paramString1, String paramString2);
   
-  List<Relation> getStudentOptionContent(Integer paramInteger);
+  List<Relation> getStudentOptionContent(Integer optionId);
   
-  List<Relation> getTeacherOptionContent(Integer paramInteger);
+  List<Relation> getTeacherOptionContent(Integer optionId);
   
-  boolean addRelation2(Integer paramInteger1, Integer paramInteger2, String paramString1, String paramString2);
+  boolean addRelation2(Integer userID, Integer optionID,String optionContent, String userStatus);
   
   Integer getCampus(Integer paramInteger, String paramString1, String paramString2);
   
   Integer getGradeNum(Integer paramInteger, String paramString1, String paramString2);
   
   Integer getSortNum(Integer paramInteger, String paramString1, String paramString2);
+
+  boolean addRelations(List<Relation> relations);
 }

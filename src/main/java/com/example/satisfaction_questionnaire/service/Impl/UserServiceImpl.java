@@ -10,18 +10,18 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
   @Autowired
   UserMapper userMapper;
-  
+
   public boolean addUser(String openId) {
     User user = new User();
     user.setOpenId(openId);
-    return this.userMapper.addUser(user);
+    return userMapper.addUser(user);
   }
-  
+
   public User getUserByOpenId(String openId) {
     return null;
   }
-  
+
   public String getOpenIdByUserId(Integer userId) {
-    return this.userMapper.getOpenIdByUserId(userId);
+    return userMapper.getOpenIdByUserId(userId);
   }
 }

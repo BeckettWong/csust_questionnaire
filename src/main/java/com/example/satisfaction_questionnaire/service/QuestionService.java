@@ -5,15 +5,15 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface QuestionService {
-  boolean addQuestion(Integer paramInteger, String paramString1, String paramString2);
+  boolean addQuestion(Integer surveyId, String questionType, String questionDescription);
   
-  Integer getQuestionIdByDescription(String paramString, Integer paramInteger);
+  Integer getQuestionIdByDescription(String questionDescription,Integer surveyId);
   
-  Integer[] getQuestionIdBySurveyId(Integer paramInteger);
+  Integer[] getQuestionIdBySurveyId(Integer surveyId);
   
-  String getQuestionDescriptionByQuestionId(Integer paramInteger);
+  String getQuestionDescriptionByQuestionId(Integer questionId);
   
-  String getQuestionTypeByQuestionId(Integer paramInteger);
+  String getQuestionTypeByQuestionId(Integer questionId);
   
-  List<Integer> getQuestionIdsByType(List<Integer> paramList);
+  List<Integer> getQuestionIdsByType(List<Integer> surveyIds);
 }

@@ -6,19 +6,19 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface QuestionnaireMapper {
-  boolean addQuestionnaire(Questionnaire paramQuestionnaire);
+  boolean addQuestionnaire(Questionnaire questionnaire);
   
-  boolean deleteQuestionnaire(Integer paramInteger);
+  boolean deleteQuestionnaire(Integer questionnaireId);
   
-  Integer[] getSurveyIdByName(String paramString);
+  Integer[] getSurveyIdByName(String questionnaireName);
   
-  List<String> getQuestionnairesTargetByName(String paramString);
+  List<String> getQuestionnairesTargetByName(String questionnaireName);
   
   List<String> getQuestionName();
   
-  String getQuestionStatusByName(String paramString);
+  String getQuestionStatusByName(String questionnaireName);
   
-  List<String> getQuestionName2(String paramString);
+  List<String> getQuestionName2(String status);
   
-  boolean updateQuestionAndStatus(String paramString1, String paramString2);
+  boolean updateQuestionAndStatus(String questionnaireName, String questionnaireStatus);
 }

@@ -7,19 +7,19 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface OptionMapper {
-  Integer getOptionId(Integer paramInteger, String paramString);
+  Integer getOptionId(Integer questionId, String optionName);
   
-  List<Option> getQuestionOption(Integer paramInteger);
+  List<Option> getQuestionOption(Integer questionId);
   
-  boolean deleteOption(Integer paramInteger);
+  boolean deleteOption(Integer optionId);
   
-  void deleteBatchOption(@Param("optionIds") List<Integer> paramList);
+  void deleteBatchOption(@Param("optionIds") List<Integer> optionIds);
   
-  boolean deleteByQuestionId(Integer paramInteger);
+  boolean deleteByQuestionId(Integer questionId);
   
-  boolean updateOption(Option paramOption);
+  boolean updateOption(Option option);
   
-  boolean addOption(Option paramOption);
+  boolean addOption(Option option);
   
-  Integer getOptionIdByQuestionId(Integer paramInteger);
+  Integer getOptionIdByQuestionId(Integer questionId);
 }

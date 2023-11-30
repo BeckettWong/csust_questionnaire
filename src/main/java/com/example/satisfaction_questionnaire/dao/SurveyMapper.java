@@ -5,11 +5,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface SurveyMapper {
-  boolean addSurvey(Survey paramSurvey);
+  boolean addSurvey(Survey survey);
   
-  Integer getSurveyIdByName2(String paramString1, String paramString2);
+  Integer getSurveyIdByName2(String surveyName, String questionnaireName);
   
-  Integer getSurveyIdByName(String paramString);
+  Integer getSurveyIdByName(String surveyName);
   
-  String getSuveyNameById(Integer paramInteger);
+  String getSuveyNameById(Integer id);
 }

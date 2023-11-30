@@ -6,21 +6,21 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface StudentMapper {
-  boolean addStudentInfo(Student paramStudent);
+  boolean addStudentInfo(Student student);
   
-  Integer getStudentIdByOpenIdAndName(String paramString1, String paramString2);
+  Integer getStudentIdByOpenIdAndName(String openId, String questionnaireName);
   
-  List<Integer> getStudentIdByAcademyName(String paramString);
+  List<Integer> getStudentIdByAcademyName(String academyName);
   
-  List<Integer> getStudentIdBySex(String paramString1, String paramString2);
+  List<Integer> getStudentIdBySex(String sex, String questionnaireName);
   
-  List<Integer> getStudentIdByCampus(String paramString1, String paramString2);
+  List<Integer> getStudentIdByCampus(String campus, String questionnaireName);
   
-  Student getStudentByOpenId(String paramString);
+  Student getStudentByOpenId(String openId);
   
-  Student getStudentByStudentId(Integer paramInteger);
+  Student getStudentByStudentId(Integer studentId);
   
-  Integer getStudentId(String paramString);
+  Integer getStudentId(String openId);
   
-  List<Integer> getStudentIdByGradeName(String paramString1, String paramString2);
+  List<Integer> getStudentIdByGradeName(String grade, String questionnaireName);
 }

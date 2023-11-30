@@ -10,24 +10,24 @@ import org.springframework.stereotype.Service;
 public class TeacherServiceImpl implements TeacherService {
   @Autowired
   TeacherMapper teacherMapper;
-  
+
   public boolean addTeacherInfo(Teacher teacher) {
-    return this.teacherMapper.addTeacherInfo(teacher);
+    return teacherMapper.addTeacherInfo(teacher);
   }
-  
+
   public Integer getTeacherId(String openId) {
-    return this.teacherMapper.getTeacherId(openId);
+    return teacherMapper.getTeacherId(openId);
   }
-  
+
   public Integer getTeacherIdByOpenIdAndName(String openId, String questionnaireName) {
-    return this.teacherMapper.getTeacherIdByOpenIdAndName(openId, questionnaireName);
+    return teacherMapper.getTeacherIdByOpenIdAndName(openId, questionnaireName);
   }
-  
+
   public Teacher getTeacherByOpenId(String openId) {
-    return this.teacherMapper.getTeacherByOpenId(openId);
+    return teacherMapper.getTeacherByOpenId(openId);
   }
-  
+
   public Teacher getTeacherByTeacherId(Integer teacherId) {
-    return this.teacherMapper.getTeacherByTeacherId(teacherId);
+    return teacherMapper.getTeacherByTeacherId(teacherId);
   }
 }

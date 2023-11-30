@@ -1,9 +1,6 @@
 package com.example.satisfaction_questionnaire.utils;
 
 import com.example.satisfaction_questionnaire.entity.User;
-import com.example.satisfaction_questionnaire.utils.JwtTokenUtil;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @Component
 public class LoginInterceptor implements HandlerInterceptor {
@@ -25,7 +25,7 @@ public class LoginInterceptor implements HandlerInterceptor {
   public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
     String method = request.getMethod();
     if ("OPTIONS".equals(method))
-      return true; 
+      return true;
     log.info("preHandler========>" + request.getRequestURI());
     String requestURI = request.getRequestURI();
     String authHeader = "Bearer " + request.getHeader("Authorization");

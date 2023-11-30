@@ -7,17 +7,17 @@ import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface QuestionMapper {
-  List<Integer> getQuestionIdBySurveyId(Integer paramInteger);
+  List<Integer> getQuestionIdBySurveyId(Integer surveyId);
   
-  boolean addQuestion(Question paramQuestion);
+  boolean addQuestion(Question question);
   
-  boolean deleteQuestion(Integer paramInteger);
+  boolean deleteQuestion(Integer questionId);
   
-  Integer getQuestionIdByDescription(String paramString, Integer paramInteger);
+  Integer getQuestionIdByDescription(String questionDescription, Integer surveyId);
   
-  String getDescriptionByQuestionId(Integer paramInteger);
+  String getDescriptionByQuestionId(Integer questionId);
   
-  String getQuestionTypeByQuestionId(Integer paramInteger);
+  String getQuestionTypeByQuestionId(Integer questionId);
   
-  List<Integer> getQuestionIdsByType(@Param("surveyIds") List<Integer> paramList);
+  List<Integer> getQuestionIdsByType(@Param("surveyIds") List<Integer> surveyIds);
 }

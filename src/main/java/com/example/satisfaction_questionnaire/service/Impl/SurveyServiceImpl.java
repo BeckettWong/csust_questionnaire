@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class SurveyServiceImpl implements SurveyService {
   @Autowired
   SurveyMapper surveyMapper;
-  
+
   public boolean addSurvey(String surveyName, String questionnaireName) {
     Survey survey = new Survey();
     survey.setSurveyName(surveyName);
@@ -20,26 +20,26 @@ public class SurveyServiceImpl implements SurveyService {
     survey.setStatus("0");
     survey.setCreateDate(timestamp);
     survey.setUpdateDate(timestamp);
-    return this.surveyMapper.addSurvey(survey);
+    return surveyMapper.addSurvey(survey);
   }
-  
+
   public Integer getSurveyIdByName(String surveyName, String questionnaireName) {
-    return this.surveyMapper.getSurveyIdByName2(surveyName, questionnaireName);
+    return surveyMapper.getSurveyIdByName2(surveyName, questionnaireName);
   }
-  
+
   public Integer[] getSurveyIdBynames(String[] surveyName, String questionnaireName) {
     Integer[] integer = new Integer[surveyName.length];
     int index = -1;
     for (String name : surveyName)
-      integer[++index] = this.surveyMapper.getSurveyIdByName2(name, questionnaireName); 
+      integer[++index] = surveyMapper.getSurveyIdByName2(name, questionnaireName);
     return integer;
   }
-  
+
   public String[] getSurveyNameById(Integer[] surveyId) {
     String[] surveyName = new String[surveyId.length];
     int index = -1;
     for (Integer id : surveyId)
-      surveyName[++index] = this.surveyMapper.getSuveyNameById(id); 
+      surveyName[++index] = surveyMapper.getSuveyNameById(id);
     return surveyName;
   }
 }

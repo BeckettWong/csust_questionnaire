@@ -5,18 +5,20 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface RelationMapper {
-  int getOptionCount(int paramInt);
+public interface RelationMapper{
+  int getOptionCount(int OptionId);
   
-  int getStudentOptionCount(int paramInt);
+  int getStudentOptionCount(int OptionId);
   
-  int getTeacherOptionCount(int paramInt);
+  int getTeacherOptionCount(int OptionId);
   
-  boolean addRelation(Relation paramRelation);
+  boolean addRelation(Relation relation);
   
-  Integer getAcademyOptionCount(Integer paramInteger1, Integer paramInteger2);
+  Integer getAcademyOptionCount(Integer OptionId, Integer userId);
   
-  List<Relation> getStudentOptionContent(Integer paramInteger);
+  List<Relation> getStudentOptionContent(Integer optionId);
   
-  List<Relation> getTeacherOptionContent(Integer paramInteger);
+  List<Relation> getTeacherOptionContent(Integer optionId);
+
+  boolean addRelations(List<Relation> relations);
 }

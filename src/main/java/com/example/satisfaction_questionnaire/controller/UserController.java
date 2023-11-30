@@ -22,36 +22,36 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
   @Autowired
   UserService userService;
-  
+
   @Autowired
   WebUserService webUserService;
-  
+
   @Autowired
   JwtTokenUtil jwtTokenUtil;
-  
-  @PostMapping({"wx/login"})
+
+  @PostMapping("wx/login")
   public ResultEntity user_login(@RequestBody Vo vo) {
     JSONObject SessionKeyOpenId = WeChatUtil.getSessionKeyOrOpenId(vo.getCode());
     String openid = SessionKeyOpenId.getString("openid");
     String sessionKey = SessionKeyOpenId.getString("session_key");
-    User user = this.userService.getUserByOpenId(openid);
+    User user = userService.getUserByOpenId(openid);
     if (user == null)
-      this.userService.addUser(openid); 
+      userService.addUser(openid);
     return ResultEntity.successWithData(Base64Utils.encode(openid));
   }
-  
-  @PostMapping({"user/login"})
+
+  @PostMapping("user/login")
   public ResultEntity login(@RequestBody WebUserVo webUser) {
-    WebUser webuser = this.webUserService.getWebUser(webUser.getUserId());
+    WebUser webuser = webUserService.getWebUser(webUser.getUserId());
     if (webuser == null)
-      return ResultEntity.failed("没有此用户!!!"); 
+      return ResultEntity.failed("没有此用户!!!");
     if (webuser.getUserpassword().equals(webUser.getUserpassword())) {
-      String token = this.jwtTokenUtil.createToken(webuser.getUserId(), "admin");
+      String token = jwtTokenUtil.createToken(webuser.getUserId(), "admin");
       Map<String, String> tokenMap = new HashMap<>();
       tokenMap.put("token", token);
       tokenMap.put("tokenHead", "Authorization");
       return ResultEntity.successWithData(tokenMap);
-    } 
+    }
     return ResultEntity.failed("登录失败");
   }
 }

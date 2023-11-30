@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 public class DescribeServiceImpl implements DescribeService {
   @Autowired
   DescribeMapper describeMapper;
-  
+
   public boolean addDescribe(Describe describe) {
-    return this.describeMapper.addDescribe(describe);
+    return describeMapper.addDescribe(describe);
   }
-  
+
   public String getDescribe(String questionnaireName, String questionnaireTarget) {
-    return this.describeMapper.getDescribe(questionnaireName, questionnaireTarget);
+    return describeMapper.getDescribe(questionnaireName, questionnaireTarget);
   }
 }

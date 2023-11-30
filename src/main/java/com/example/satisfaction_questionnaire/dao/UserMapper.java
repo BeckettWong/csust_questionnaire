@@ -5,9 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserMapper {
-  boolean addUser(User paramUser);
+  boolean addUser(User user);
   
-  User getUserByOpenId(String paramString);
+  User getUserByOpenId(String openId);
   
-  String getOpenIdByUserId(Integer paramInteger);
+  String getOpenIdByUserId(Integer userId);
 }

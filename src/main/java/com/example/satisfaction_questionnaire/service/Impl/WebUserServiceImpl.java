@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 public class WebUserServiceImpl implements WebUserService {
   @Autowired
   WebUserMapper webUserMapper;
-  
+
   public WebUser getWebUser(String userId) {
-    return this.webUserMapper.getWebUser(userId);
+    return webUserMapper.getWebUser(userId);
   }
-  
+
   public boolean updatePassword(String userId, String password) {
-    return this.webUserMapper.updatePassWord(userId, password);
+    return webUserMapper.updatePassWord(userId, password);
   }
 }

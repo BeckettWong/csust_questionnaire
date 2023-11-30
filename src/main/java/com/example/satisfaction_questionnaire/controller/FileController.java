@@ -38,28 +38,28 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class FileController {
   @Autowired
   QuestionnaireService questionnaireService;
-  
+
   @Autowired
   SurveyService surveyService;
-  
+
   @Autowired
   RelationService relationService;
-  
+
   @Autowired
   StudentService studentService;
-  
+
   @Autowired
   TeacherService teacherService;
-  
+
   @Autowired
   UserService userService;
-  
+
   @Autowired
   OptionService optionService;
-  
+
   @Autowired
   QuestionService questionService;
-  
+
   @RequestMapping({"questionnaire/studentexcel"})
   @ResponseBody
   public void writeStudentExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("questionnaireName") String questionnaireName) throws Exception {
@@ -67,7 +67,7 @@ public class FileController {
     HSSFWorkbook hw = student(studentVos, questionnaireName);
     toExcel(response, hw, "student");
   }
-  
+
   @RequestMapping({"questionnaire/teacherexcel"})
   @ResponseBody
   public void writeTeacherExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("questionnaireName") String questionnaireName) throws Exception {
@@ -75,7 +75,7 @@ public class FileController {
     HSSFWorkbook hssfWorkbook = teacher(teacherVos, questionnaireName);
     toExcel(response, hssfWorkbook, "teacher");
   }
-  
+
   @RequestMapping({"questionnaire/allexcel"})
   @ResponseBody
   public void writeAllExcel(HttpServletRequest request, HttpServletResponse response, @RequestParam("questionnaireName") String questionnaireName) throws Exception {
@@ -83,14 +83,14 @@ public class FileController {
     HSSFWorkbook hssfWorkbook = All(allVos, questionnaireName);
     toExcel(response, hssfWorkbook, "all");
   }
-  
+
   public void setResponseHeader(HttpServletResponse response, String fileName) throws IOException {
     response.setContentType("application/octet-stream");
     response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
-    response.setHeader("Content-Disposition", "attachment; filename=" + 
-        URLEncoder.encode(fileName, "UTF-8"));
+    response.setHeader("Content-Disposition", "attachment; filename=" +
+            URLEncoder.encode(fileName, "UTF-8"));
   }
-  
+
   public void toExcel(HttpServletResponse response, HSSFWorkbook wk, String name) throws Exception {
     String fileName = name + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")) + ".xls";
     try {
@@ -101,36 +101,36 @@ public class FileController {
       servletOutputStream.close();
     } catch (Exception e) {
       e.printStackTrace();
-    } 
+    }
   }
-  
+
   public List<StudentVo> findAllStudentVo(String questionnaireName) throws Exception {
-    List<Integer> surveyIdByName = Arrays.asList(this.questionnaireService.getSurveyIdByName(questionnaireName));
-    List<Integer> questionIdsByType = this.questionService.getQuestionIdsByType(surveyIdByName);
+    List<Integer> surveyIdByName = Arrays.asList(questionnaireService.getSurveyIdByName(questionnaireName));
+    List<Integer> questionIdsByType = questionService.getQuestionIdsByType(surveyIdByName);
     List<StudentVo> studentVos = new ArrayList<>();
     for (Integer questionId : questionIdsByType) {
-      Integer optionIdByQuestionId = this.optionService.getOptionIdByQuestionId(questionId);
-      List<Relation> studentOptionContent = this.relationService.getStudentOptionContent(optionIdByQuestionId);
+      Integer optionIdByQuestionId = optionService.getOptionIdByQuestionId(questionId);
+      List<Relation> studentOptionContent = relationService.getStudentOptionContent(optionIdByQuestionId);
       for (Relation r : studentOptionContent) {
         StudentVo studentVo = new StudentVo();
-        String questionDescriptionByQuestionId = this.questionService.getQuestionDescriptionByQuestionId(questionId);
+        String questionDescriptionByQuestionId = questionService.getQuestionDescriptionByQuestionId(questionId);
         studentVo.setQuestionDescription(questionDescriptionByQuestionId);
         studentVo.setOptionContent(r.getOptionContent());
-        Student studentByOpenId = this.studentService.getStudentByStudentId(r.getUserId());
+        Student studentByOpenId = studentService.getStudentByStudentId(r.getUserId());
         studentVo.setAcademy(studentByOpenId.getAcademyName());
         studentVo.setCampus(studentByOpenId.getCampus());
         studentVo.setCreateDate(studentByOpenId.getCreateDate());
         studentVo.setSex(studentByOpenId.getSex());
         studentVo.setGarde(studentByOpenId.getGrade());
         studentVos.add(studentVo);
-      } 
-    } 
+      }
+    }
     return studentVos;
   }
-  
+
   public List<AllVo> findAllAllVo(String questionnaireName) throws Exception {
-    List<Integer> surveyIdByName = Arrays.asList(this.questionnaireService.getSurveyIdByName(questionnaireName));
-    List<Integer> questionIdsByType = this.questionService.getQuestionIdsByType(surveyIdByName);
+    List<Integer> surveyIdByName = Arrays.asList(questionnaireService.getSurveyIdByName(questionnaireName));
+    List<Integer> questionIdsByType = questionService.getQuestionIdsByType(surveyIdByName);
     List<StudentVo> studentVos = findAllStudentVo(questionnaireName);
     List<TeacherVo> teacherVos = findAllTeacherVo(questionnaireName);
     List<AllVo> allVos = new ArrayList<>();
@@ -143,7 +143,7 @@ public class FileController {
       allVo.setQuestionDescription(studentVo.getQuestionDescription());
       allVo.setStatus("学生,年级:" + studentVo.getGarde());
       allVos.add(allVo);
-    } 
+    }
     for (TeacherVo teacherVo : teacherVos) {
       AllVo allVo = new AllVo();
       allVo.setCampus(teacherVo.getCampus());
@@ -153,33 +153,33 @@ public class FileController {
       allVo.setQuestionDescription(teacherVo.getQuestionDescription());
       allVo.setStatus("老师:" + teacherVo.getSort());
       allVos.add(allVo);
-    } 
+    }
     return allVos;
   }
-  
+
   public List<TeacherVo> findAllTeacherVo(String questionnaireName) throws Exception {
-    List<Integer> surveyIdByName = Arrays.asList(this.questionnaireService.getSurveyIdByName(questionnaireName));
-    List<Integer> questionIdsByType = this.questionService.getQuestionIdsByType(surveyIdByName);
+    List<Integer> surveyIdByName = Arrays.asList(questionnaireService.getSurveyIdByName(questionnaireName));
+    List<Integer> questionIdsByType = questionService.getQuestionIdsByType(surveyIdByName);
     List<TeacherVo> teacherVos = new ArrayList<>();
     for (Integer questionId : questionIdsByType) {
-      Integer optionIdByQuestionId = this.optionService.getOptionIdByQuestionId(questionId);
-      List<Relation> teacherOptionContent = this.relationService.getTeacherOptionContent(optionIdByQuestionId);
+      Integer optionIdByQuestionId = optionService.getOptionIdByQuestionId(questionId);
+      List<Relation> teacherOptionContent = relationService.getTeacherOptionContent(optionIdByQuestionId);
       for (Relation r : teacherOptionContent) {
         TeacherVo teacherVo = new TeacherVo();
-        String questionDescriptionByQuestionId = this.questionService.getQuestionDescriptionByQuestionId(questionId);
+        String questionDescriptionByQuestionId = questionService.getQuestionDescriptionByQuestionId(questionId);
         teacherVo.setQuestionDescription(questionDescriptionByQuestionId);
         teacherVo.setOptionContent(r.getOptionContent());
-        Teacher teacherByOpenId = this.teacherService.getTeacherByTeacherId(r.getUserId());
+        Teacher teacherByOpenId = teacherService.getTeacherByTeacherId(r.getUserId());
         teacherVo.setCampus(teacherByOpenId.getCampus());
         teacherVo.setCreateDate(teacherByOpenId.getCreateDate());
         teacherVo.setSex(teacherByOpenId.getSex());
         teacherVo.setSort(teacherByOpenId.getSort());
         teacherVos.add(teacherVo);
-      } 
-    } 
+      }
+    }
     return teacherVos;
   }
-  
+
   public HSSFWorkbook student(List<StudentVo> studentVos, String questionnaireName) {
     HSSFWorkbook wk = new HSSFWorkbook();
     HSSFSheet sheet = wk.createSheet("问卷名------" + questionnaireName + "--------学生意见建议表");
@@ -201,14 +201,14 @@ public class FileController {
       row.createCell(4).setCellValue(studentVo.getCreateDate().toString());
       row.createCell(5).setCellValue(studentVo.getQuestionDescription());
       row.createCell(6).setCellValue(studentVo.getOptionContent());
-    } 
+    }
     return wk;
   }
-  
+
   public HSSFWorkbook teacher(List<TeacherVo> teacherVos, String questionnaireName) {
     System.out.println("进入HSSFWorkbook===========================");
     for (TeacherVo t : teacherVos)
-      System.out.println(t); 
+      System.out.println(t);
     HSSFWorkbook wk = new HSSFWorkbook();
     HSSFSheet sheet = wk.createSheet("问卷名------" + questionnaireName + "--------老师意见建议表");
     HSSFRow smallTitle = sheet.createRow(0);
@@ -227,10 +227,10 @@ public class FileController {
       row.createCell(3).setCellValue(teacherVo.getQuestionDescription());
       row.createCell(4).setCellValue(teacherVo.getOptionContent());
       row.createCell(5).setCellValue(teacherVo.getSort());
-    } 
+    }
     return wk;
   }
-  
+
   public HSSFWorkbook All(List<AllVo> allVos, String questionnaireName) {
     HSSFWorkbook wk = new HSSFWorkbook();
     HSSFSheet sheet = wk.createSheet("问卷名------" + questionnaireName + "--------所有意见建议表");
@@ -250,7 +250,7 @@ public class FileController {
       row.createCell(3).setCellValue(allVo.getQuestionDescription());
       row.createCell(4).setCellValue(allVo.getOptionContent());
       row.createCell(5).setCellValue(allVo.getStatus());
-    } 
+    }
     return wk;
   }
 }

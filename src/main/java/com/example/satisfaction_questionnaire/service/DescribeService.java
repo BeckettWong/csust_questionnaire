@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DescribeService {
-  boolean addDescribe(Describe paramDescribe);
+  boolean addDescribe(Describe describe);
   
   String getDescribe(String paramString1, String paramString2);
 }

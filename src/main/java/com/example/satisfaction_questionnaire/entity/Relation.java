@@ -10,7 +10,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class Relation implements Serializable {
   private Integer id;
-  
   private Integer userId;
   
   private Integer optionId;
@@ -19,4 +18,10 @@ public class Relation implements Serializable {
   
   private String userStatus;
 
+  public Relation(Integer userId, Integer optionId, String optionContent, String userStatus) {
+    this.userId = userId;
+    this.optionId = optionId;
+    this.optionContent = optionContent;
+    this.userStatus = userStatus;
+  }
 }

@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface DescribeMapper {
-  boolean addDescribe(Describe paramDescribe);
+  boolean addDescribe(Describe describe);
   
-  String getDescribe(String paramString1, String paramString2);
+  String getDescribe(String questionnaireName, String questionnaireTarget);
 }

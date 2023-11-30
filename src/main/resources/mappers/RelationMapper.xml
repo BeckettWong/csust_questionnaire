@@ -26,6 +26,12 @@
     </select>
     <select id="getStudentOptionContent" resultMap="BaseResultMap">select * from answer_option_relation where user_status="student" and option_id=#{optionId}</select>
     <select id="getTeacherOptionContent" resultMap="BaseResultMap">select * from answer_option_relation where user_status="teacher" and option_id=#{optionId}</select>
+    <insert id="addRelations">
+        insert into answer_option_relation(user_id,option_id,option_content,user_status) values
+        <foreach collection="relations" item="relation" separator=",">
+            (#{relation.userId},#{relation.optionId},#{relation.optionContent},#{relation.userStatus})
+        </foreach>
+    </insert>
 
 
 </mapper>

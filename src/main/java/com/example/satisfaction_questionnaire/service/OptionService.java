@@ -4,13 +4,14 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OptionService {
-  boolean addOption(Integer paramInteger, String[] paramArrayOfString);
+
+  boolean addOption(Integer questionId, String[] options);
   
-  Integer getOptionId(Integer paramInteger, String paramString);
+  Integer getOptionId(Integer questionId, String optionName);
   
-  String[] getOptionNameByQuestionId(Integer paramInteger);
+  String[] getOptionNameByQuestionId(Integer questionId);
   
-  Integer getOptionIdByQuestionId(Integer paramInteger);
+  Integer getOptionIdByQuestionId(Integer questionId);
   
-  boolean addOptionOnly(Integer paramInteger, String paramString);
+  boolean addOptionOnly(Integer questionId, String optionName);
 }

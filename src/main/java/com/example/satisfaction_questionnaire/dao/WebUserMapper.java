@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface WebUserMapper {
-  WebUser getWebUser(String paramString);
+  WebUser getWebUser(String userId);
   
-  boolean updatePassWord(String paramString1, String paramString2);
+  boolean updatePassWord(String userpassword, String userId);
 }
